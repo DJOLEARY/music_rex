@@ -27,10 +27,10 @@ impl Handler {
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        let help_command = "!helpRec";
+        let help_command = "!rex";
         let help_message = "
-        Use the !addRec command to have the suggested song be added to the playlist.
-        Example: `!addRec https://open.spotify.com/track/5CLc13Ktc8gDsDihuAqFzM?si=giMo5jDTRGKc1dzmhhWa3w`
+        Use the `!rex_add` command to have the suggested song be added to the playlist.
+        Example: `!rex_add https://open.spotify.com/track/5CLc13Ktc8gDsDihuAqFzM?si=giMo5jDTRGKc1dzmhhWa3w`
         ";
         if msg.content == help_command {
             if let Err(why) = msg.channel_id.say(&ctx.http, help_message).await {
@@ -39,7 +39,7 @@ impl EventHandler for Handler {
             return;
         }
 
-        let add_rec_command = "!addRec";
+        let add_rec_command = "!rex_add";
         if msg.content.starts_with(add_rec_command) {
             let raw_playlist_id =
                 std::env::var("PLAYLIST_URI").expect("Expected PLAYLIST_URI in the environment");
