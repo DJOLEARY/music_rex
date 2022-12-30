@@ -56,7 +56,13 @@ impl EventHandler for Handler {
                 .await
             {
                 println!("Error adding item to playlist: {:?}", why);
+                return;
             }
+
+            if let Err(why) = msg.react(ctx, '🐜').await {
+                println!("Error while reacting to message: {:?}", why);
+            }
+    
             return;
         }
     }
